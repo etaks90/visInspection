@@ -29,3 +29,18 @@ Fucntion is triggered when uplaoded to path. Improtant to use local file **local
   }
 }
 ```
+
+# Logging
+## Application Insights
+
+```KQL
+traces
+| where timestamp > ago(1d) // Adjust the timeframe as needed
+| where severityLevel >= 3  // Filter for errors and critical issues
+| order by timestamp desc   // Orders the output by time, most recent first
+| project timestamp, message, severityLevel, operation_Id // Customize the output columns
+
+```
+
+Logs
+![alt text](readme/appIns.png)

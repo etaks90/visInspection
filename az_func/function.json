@@ -1,0 +1,12 @@
+{
+    "bindings": [
+      {
+        "type": "blobTrigger",
+        "name": "myblob",
+        "direction": "in",
+        "path": "image-uploads/{name}",
+        "connection": "connectionVisualInspection"
+      }
+    ]
+  }
+  

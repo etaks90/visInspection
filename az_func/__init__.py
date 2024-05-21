@@ -32,9 +32,7 @@ loaded_model = get_keras_model(blob_service_client, "local", r"C:\Users\oliver.k
 # FUNCTIONS
 app = func.FunctionApp()
 
-@app.blob_trigger(arg_name="myblob", path="image-uploads",
-                               connection="connectionVisualInspection") 
-def trigger_image_evaluation(myblob: func.InputStream):
+def main(myblob: func.InputStream):
     """
     For some reason the variable 'myblob.name' starts with the container_name. Therefore
     we remove this below.
@@ -45,9 +43,6 @@ def trigger_image_evaluation(myblob: func.InputStream):
                 f"fp__img__blob: {fp__img__blob}"
                 f"Blob Size: {myblob.length} bytes")
     
-    
-    
-
     # EVAL
     prob__ok = eval_img_from_blob(loaded_model, blob_service_client, container_name, fp__img__blob)
 
