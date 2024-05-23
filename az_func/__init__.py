@@ -30,7 +30,7 @@ eng = get_engine()
 blob_service_client = get_blob_service_client(j_config["connection_string"])
 
 # model
-loaded_model = get_keras_model(blob_service_client, j_config["model_src"], r"C:\Users\oliver.koehn\Documents\gitProjects\qualityInspection\examples\trained_model.keras")
+loaded_model = get_keras_model(blob_service_client, j_config["model_src"])
 
 ##########################################################################################
 ##########################AZURE FUNCTION STUFF################################################

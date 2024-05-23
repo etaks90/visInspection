@@ -51,5 +51,18 @@ then use
 traces
 | where customDimensions.InvocationId == "eefc8b9b-e29f-437a-adbc-1ca2eca864bb"
 ```
+or for exceptions:
+```KQL
+exceptions
+| where customDimensions.InvocationId == "777e93a7-f96a-47dd-b347-1ab5ac40d800"
+```
 
 Also possible to live monitor if right click in vscode on teh fucntion app. Will open new browser tab.
+
+Search where logs contain:
+```KQL
+traces
+| where message contains "download_file_from_blob"
+| project timestamp, message, severityLevel, operation_Id
+| order by timestamp desc
+```
