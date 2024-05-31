@@ -137,3 +137,4 @@ venvQualInsp311
 **/*.zip
 **/*.keras
 venv*
+.vscode/settings.json
