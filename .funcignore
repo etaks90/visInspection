@@ -10,3 +10,4 @@ venvQualInsp311
 **/*.zip
 **/*.keras
 venv*
+.venv

@@ -3,7 +3,7 @@ from tensorflow.keras.preprocessing.image import img_to_array, load_img
 import numpy as np
 from azure.storage.blob import BlobServiceClient
 from PIL import Image
-import io, os, logging, tempfile
+import io, os, logging, tempfile, sys
 from sqlalchemy import create_engine
 import pandas as pd
 logger = logging.getLogger('log_utils')
@@ -110,12 +110,18 @@ def download_file_from_blob(blob_service_client, container_name, fp_blob):
 def get_keras_model(blob_service_client, src):
     if src == "local":
         fp_model_local = os.getenv("FP__MODEL_LOCAL")
+        if fp_model_local is None:
+            sys.exit("fp_model_local is None")
         logger.info(f"LAOD MODEL FROM LOCAL PATH {fp_model_local}")
         return tf.keras.models.load_model(fp_model_local)
     elif src == "blob":
         fp_model_blob = os.getenv("FP__MODEL_BLOB")
+        if fp_model_blob is None:
+            sys.exit("fp_model_blob is None")
         logger.info(f"LAOD MODEL FROM BLOB {fp_model_blob}")
         return download_file_from_blob(blob_service_client, "config", fp_model_blob)
+    else:
+        sys.exit("Error: SOURCE NEEDS TO BE PROVIDED")
     
 
 def eval_to_db(loaded_model, blob_service_client, eng, j_config):

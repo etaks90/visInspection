@@ -21,16 +21,6 @@ logger.info("START AZ FUNC")
 # Set default encoding to UTF-8
 sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
 sys.stderr = codecs.getwriter("utf-8")(sys.stderr.detach())
-# PARAM
-j_config = get_config()
-# DB CONNECTION
-eng = get_engine()
-
-# BLOB CONNECTION
-blob_service_client = get_blob_service_client(j_config["connection_string"])
-
-# model
-loaded_model = get_keras_model(blob_service_client, j_config["model_src"])
 
 ##########################################################################################
 ##########################AZURE FUNCTION STUFF################################################
@@ -39,6 +29,22 @@ loaded_model = get_keras_model(blob_service_client, j_config["model_src"])
 app = func.FunctionApp()
 
 def main(myblob: func.InputStream):
+
+    # Check if the config exists
+    try:
+        j_config
+        print("j_config EXISSTS")
+    except:
+        print(f"FIRST RUN: INITIALIZE")
+        # PARAM
+        j_config = get_config()
+        # DB CONNECTION
+        eng = get_engine()
+        # BLOB CONNECTION
+        blob_service_client = get_blob_service_client(j_config["connection_string"])
+        # model
+        loaded_model = get_keras_model(blob_service_client, j_config["model_src"])
+
     """
     For some reason the variable 'myblob.name' starts with the container_name. Therefore
     we remove this below.

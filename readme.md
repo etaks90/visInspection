@@ -2,10 +2,20 @@
 
 Example for visual inspection.
 
+# Testing
+
+To test evaluation of an image, wwe can use http-Trigger and name a special blob.
+
+Local Debugging: [http://localhost:7071/api/HttpTrigger1?blob=cast_def_0_9966.jpeg](http://localhost:7071/api/HttpTrigger1?blob=cast_def_0_9966.jpeg)
+
+
 # Setup
 
 python3.11
+
 install requirements
+
+ Make sure ODBC driver is installe dlocally: [https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver16](https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver16)
 
 # Files
 

@@ -18,20 +18,25 @@ logger.info("START AZ FUNC")
 sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
 sys.stderr = codecs.getwriter("utf-8")(sys.stderr.detach())
 
-# PARAM
-j_config = get_config()
-
-# DB CONNECTION
-eng = get_engine()
-
-# BLOB CONNECTION
-blob_service_client = get_blob_service_client(j_config["connection_string"])
-
-# model
-loaded_model = get_keras_model(blob_service_client, j_config["model_src"])
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
+
+    # Check if the config exists
+    try:
+        j_config
+        print("j_config EXISSTS")
+    except:
+        print(f"FIRST RUN: INITIALIZE")
+        # PARAM
+        j_config = get_config()
+        # DB CONNECTION
+        eng = get_engine()
+        # BLOB CONNECTION
+        blob_service_client = get_blob_service_client(j_config["connection_string"])
+        # model
+        loaded_model = get_keras_model(blob_service_client, j_config["model_src"])
+
     if 1 == 1:
         fp__img__blob = req.params.get('blob')
         print(f"CALLED WITH BLOB {fp__img__blob}")
